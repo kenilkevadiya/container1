@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+const { sourceMapsEnabled } = require('process');
 
 const app = express();
 app.use(express.json());
@@ -9,6 +10,8 @@ app.use(express.json());
 const PORT = Number(process.env.PORT) || 6000;
 const CONTAINER2_URL = process.env.CONTAINER2_URL || "http://container2-service:90/calculate";
 const FILE_DIR = process.env.FILE_DIR || "/kenil_PV_dir";
+
+// app1.js
 
 app.post('/store-file', (req, res) => {
     const { file, data } = req.body;
@@ -46,7 +49,3 @@ app.post('/calculate', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Container 1 is listening on port ${PORT}`);
 });
-
-//testing
-//testing
-//wjkbejck
