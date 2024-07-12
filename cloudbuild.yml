@@ -30,12 +30,23 @@ steps:
         docker push us-central1-docker.pkg.dev/kubernetes-assignment-429022/k8s-repo/container1:latest
         echo "Docker image for container1 pushed successfully."
 
-  # Step 4: Updating GKE deployments with new Docker image
-  - name: "gcr.io/cloud-builders/kubectl"
-    entrypoint: "bash"
+  # # Step 4: Updating GKE deployments with new Docker image
+  # - name: "gcr.io/cloud-builders/kubectl"
+  #   entrypoint: "bash"
+  #   args:
+  #     - "-c"
+  #     - |
+  #       kubectl get deployment container1-deployment || kubectl apply -f container1-deployment.yml
+  #       kubectl set image container1-deployment container1=us-central1-docker.pkg.dev/kubernetes-assignment-429022/k8s-repo/container1:latest
+  #       echo "GKE deployments updated with new Docker image."
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
     args:
-      - "-c"
+      - '-c'
       - |
+        gcloud container clusters get-credentials cluster-k8s --zone us-central1-c --project kubernetes-assignment-429022
+        echo "Cluster credentials successfully obtained."
         kubectl get deployment container1-deployment || kubectl apply -f container1-deployment.yml
         kubectl set image container1-deployment container1=us-central1-docker.pkg.dev/kubernetes-assignment-429022/k8s-repo/container1:latest
         echo "GKE deployments updated with new Docker image."
