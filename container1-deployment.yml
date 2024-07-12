@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: container1-deployment
+  labels:
+    app: container1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: container1
+  template:
+    metadata:
+      labels:
+        app: container1
+    spec:
+      containers:
+      - name: container1
+        image: kenilkevadiya/kbcontainer1:kk
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 6000
+        volumeMounts:
+        - name: data-volume
+          mountPath: /kenil_PV_dir
+        env:
+        - name: PORT
+          value: "6000"
+        - name: FILE_DIR
+          value: "/kenil_PV_dir"
+        - name: CONTAINER2_URL
+          value: "http://container2-service:90/calculate"
+      volumes:
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: k-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: k-pvc
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: container1-service
+spec:
+  selector:
+    app: container1
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 6000
+  type: LoadBalancer

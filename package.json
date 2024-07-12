@@ -1,0 +1,17 @@
+{
+  "name": "container1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app1.js",
+  "scripts": {
+    "start": "node app1.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "axios": "^0.21.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+
