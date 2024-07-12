@@ -9,7 +9,7 @@ steps:
     args:
       - '-c'
       - |
-        gcloud container clusters get-credentials cluster-k8s --zone us-central1-c --project kubernetes-assignment-429022
+        gcloud container clusters get-credentials k8s-cluster --zone us-central1-c --project kubernetes-assignment-429022
         echo "Cluster credentials successfully obtained."
 
   # Step 2: Building Docker image for container1
@@ -36,7 +36,7 @@ steps:
     args:
       - "-c"
       - |
-        gcloud container clusters get-credentials cluster-k8s --zone us-central1-c --project kubernetes-assignment-429022
+        gcloud container clusters get-credentials k8s-cluster --zone us-central1-c --project kubernetes-assignment-429022
         kubectl get deployment container1-deployment || kubectl apply -f container1-deployment.yml
         kubectl set image container1-deployment container1=us-central1-docker.pkg.dev/kubernetes-assignment-429022/k8s-repo/container1:latest
         echo "GKE deployments updated with new Docker image."
