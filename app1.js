@@ -12,7 +12,6 @@ const CONTAINER2_URL = process.env.CONTAINER2_URL || "http://container2-service:
 const FILE_DIR = process.env.FILE_DIR || "/kenil_PV_dir";
 
 // app1.js
-// conatiner1
 
 app.post('/store-file', (req, res) => {
     const { file, data } = req.body;
